@@ -1,0 +1,63 @@
+{
+  "name": "makeChords",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "makeChords/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/makeChords",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "makeChords/src/main.ts",
+        "tsConfig": "makeChords/tsconfig.app.json",
+        "assets": ["makeChords/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "makeChords:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "makeChords:build:development"
+        },
+        "production": {
+          "buildTarget": "makeChords:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "makeChords/jest.config.ts"
+      }
+    }
+  }
+}
