@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { header, midiObject, xmlData } from './template';
 
 export function create() {
+  console.log('Creating file...');
   const contentSizeOffset = 7;
   const midiSizeOffset = 25;
   // const midiFileStart = 29;
@@ -24,17 +25,21 @@ export function create() {
   buf.writeInt32BE(contentSize, contentSizeOffset);
   buf.writeInt32BE(midiSize, midiSizeOffset);
 
-  const buf2 = fs.readFileSync('data/Am_F_G_E.csc');
+  // const buf2 = fs.readFileSync('data/Am_F_G_E.csc');
 
-  if (buf2.length !== buf.length) {
-    console.error('Lengths do not match');
-  }
+  // if (buf2.length !== buf.length) {
+  //   console.error('Lengths do not match');
+  // }
 
-  for (let i = 0; i < buf2.length; i++) {
-    if (buf2[i] !== buf[i]) {
-      if (buf2[i] !== buf[i]) {
-        console.log('DATA ERROR', i, buf2[i], buf[i]);
-      }
-    }
-  }
+  // for (let i = 0; i < buf2.length; i++) {
+  //   if (buf2[i] !== buf[i]) {
+  //     if (buf2[i] !== buf[i]) {
+  //       console.log('DATA ERROR', i, buf2[i], buf[i]);
+  //     }
+  //   }
+  // }
+
+  fs.writeFileSync('data/new.csc', buf);
+
+  console.log('File created');
 }
